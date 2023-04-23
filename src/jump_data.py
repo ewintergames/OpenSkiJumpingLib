@@ -66,9 +66,9 @@ class JumpResult:
             distance=jump_data.distance,
             distance_points=hill_info.k_points + (jump_data.distance - hill_info.k) * hill_info.meter_points,
             judges=judges,
-            style_points=sum(val for val, flag in judges if flag) - min_ind - max_ind,
+            style_points=sum(val for val, flag in judges if flag),
             gates_diff=jump_data.gate_diff,
-            gate_points=jump_data.gate_diff * hill_info.gate_points,
+            gate_points=jump_data.gate_diff * hill_info.gates_spacing * hill_info.gate_points,
             wind=jump_data.wind,
-            wind_points=round(jump_data.wind * (
-                -hill_info.head_wind_points if jump_data.wind > 0 else hill_info.tail_wind_points), 1))
+            wind_points=jump_data.wind * (
+                hill_info.head_wind_points if jump_data.wind > 0 else hill_info.tail_wind_points))
