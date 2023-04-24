@@ -8,8 +8,10 @@ class JumpResults:
 
 class Result:
     results: JumpResults
-    qualRankPoints: float
-    totalResults: List[float]
+    total_results: List[float]
     bibs: List[int]
-    rank: int
-    totalPoints: float
+    ranks: List[int]
+    total_points: float
+
+    def add_jump_result(self, result: JumpResult):
+        self.results.results.append(self, result)

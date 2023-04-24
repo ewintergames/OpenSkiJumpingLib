@@ -1,6 +1,8 @@
 import unittest
 
 from src.jump_data import HillInfo, JumpData, JumpResult
+from src.result import JumpResults, Result
+from typing import List
 
 
 class MyTestCase(unittest.TestCase):
