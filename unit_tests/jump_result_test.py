@@ -1,7 +1,7 @@
 import unittest
 
 from src.jump_data import HillInfo, JumpData, JumpResult
-from src.result import JumpResults, Result
+from src.result import JumpResults, Result, ResultsLoader
 from typing import List
 
 
@@ -23,6 +23,8 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(self.jump_result.gate_points, 4.9)
         self.assertEqual(self.jump_result.wind_points, -13.4)
 
+    def test_results_loader(self):
+        ResultsLoader.get_results_from_json(self, "file.json")
 
 
 if __name__ == '__main__':

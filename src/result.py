@@ -1,3 +1,4 @@
+import json
 from typing import List
 from jump_data import JumpResult
 
@@ -15,3 +16,10 @@ class Result:
 
     def add_jump_result(self, result: JumpResult):
         self.results.results.append(self, result)
+
+
+class ResultsLoader:
+    @staticmethod
+    def get_results_from_json(path: str):
+        with open(path, "r") as json_file:
+            print(json.loads(json_file))
