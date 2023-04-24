@@ -1,8 +1,7 @@
 import unittest
 
-from src.jump_data import HillInfo, JumpData, JumpResult
-from src.result import JumpResults, Result, ResultsLoader
-from typing import List
+from osj.jump_data import HillInfo, JumpData, JumpResult
+from osj.result import ResultsLoader
 
 
 class MyTestCase(unittest.TestCase):
