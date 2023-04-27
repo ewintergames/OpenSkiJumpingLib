@@ -42,7 +42,7 @@ class HillInfo:
 class JumpData:
     distance: float
     judges_points: List[float]
-    gate_diff: int
+    gate: int
     wind: float
 
 
@@ -58,17 +58,18 @@ class JumpResult:
     wind_points: float
 
     @classmethod
-    def create(cls, jump_data: JumpData, hill_info: HillInfo) -> Self:
+    def create(cls, jump_data: JumpData, hill_info: HillInfo, gate_on_round_start : int) -> Self:
         min_ind = min((v, i) for i, v in enumerate(jump_data.judges_points))[0]
         max_ind = max((v, i) for i, v in enumerate(jump_data.judges_points))[0]
         judges = [(val, i != min_ind and i != max_ind) for i, val in enumerate(jump_data.judges_points)]
+        diff = gate_on_round_start - jump_data.gate
         return cls(
             distance=jump_data.distance,
             distance_points=hill_info.k_points + (jump_data.distance - hill_info.k) * hill_info.meter_points,
             judges=judges,
             style_points=sum(val for val, flag in judges if flag) - min_ind - max_ind,
-            gates_diff=jump_data.gate_diff,
-            gate_points= round(-jump_data.gate_diff * hill_info.gates_spacing * hill_info.gate_points, 1),
+            gates_diff= diff,
+            gate_points= round(diff * hill_info.gates_spacing * hill_info.gate_points, 1),
             wind=jump_data.wind,
             wind_points=round(jump_data.wind * (
                 -hill_info.head_wind_points if jump_data.wind > 0 else hill_info.tail_wind_points), 1))
