@@ -1,2 +1,2 @@
 # OpenSkiJumpingLib
-Multi language library for ski jumping apps
+Python library for ski jumping apps
