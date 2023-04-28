@@ -1,9 +1,9 @@
 import json
 import requests
 from bs4 import BeautifulSoup
-
 from typing import List
 from osj.jump_data import JumpResult, JumpData
+from osj.competition.competition import Competitor
 
 
 class JumpResults:
@@ -11,14 +11,28 @@ class JumpResults:
 
 
 class Result:
+    id_: int
+    competitor: Competitor
+
     results: JumpResults
     total_results: List[float]
-    bibs: List[int]
-    ranks: List[int]
     total_points: float
+
+    ranks: List[int]
+    bibs: List[int]
+    cup_loses: int
+    eliminated: bool
+    ord_rank: int
+
+    def __init__(self, id_: int, competitor: Competitor):
+        self.id_ = id_
+        self.competitor = competitor
 
     def add_jump_result(self, result: JumpResult):
         self.results.results.append(result)
+
+    def last_jump(self):
+        return self.results[len(self.results) - 1]
 
 
 class FisResultsLoader:

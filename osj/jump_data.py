@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import List, Tuple, Self
+from competition.competition_enums import JumpResultState
 
 
 @dataclass
@@ -56,9 +57,10 @@ class JumpResult:
     gate_points: float
     wind: float
     wind_points: float
+    state: JumpResultState = JumpResultState.NoneState
 
     @classmethod
-    def create(cls, jump_data: JumpData, hill_info: HillInfo, gate_on_round_start : int) -> Self:
+    def create(cls, jump_data: JumpData, hill_info: HillInfo, gate_on_round_start: int, jump_state = JumpResultState) -> Self:
         min_ind = min((v, i) for i, v in enumerate(jump_data.judges_points))[0]
         max_ind = max((v, i) for i, v in enumerate(jump_data.judges_points))[0]
         judges = [(val, i != min_ind and i != max_ind) for i, val in enumerate(jump_data.judges_points)]
@@ -72,4 +74,6 @@ class JumpResult:
             gate_points= round(diff * hill_info.gates_spacing * hill_info.gate_points, 1),
             wind=jump_data.wind,
             wind_points=round(jump_data.wind * (
-                -hill_info.head_wind_points if jump_data.wind > 0 else hill_info.tail_wind_points), 1))
+                -hill_info.head_wind_points if jump_data.wind > 0 else hill_info.tail_wind_points), 1),
+            state=jump_state
+        )
